@@ -405,9 +405,12 @@ export default function RainyDayContent() {
 
           {/* Weather Decision Slider */}
           <div className="bg-white/10 backdrop-blur-md rounded-2xl p-6 md:p-8 border border-white/20 max-w-3xl mx-auto">
-            <h2 className="text-xl md:text-2xl font-bold mb-6">
+            <h2 className="text-xl md:text-2xl font-bold mb-2">
               How bad is it raining right now?
             </h2>
+            <p className="text-white/80 mb-6 text-sm md:text-base">
+              Select your current weather to see tailored recommendations
+            </p>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
               {weatherModes.map((mode) => (
