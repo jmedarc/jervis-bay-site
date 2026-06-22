@@ -1,16 +1,12 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import BestBeachesContent from "./best-beaches-content";
 
-export default function BestBeaches() {
-  return (
-    <main style={{ padding: 30, maxWidth: 900, margin: "auto" }}>
-      
-      <Link href="/">← Back to Home</Link>
+export const metadata: Metadata = {
+  title: "Best Beaches in Jervis Bay | Condition-Based Guide",
+  description: "Find the best beach for today's conditions in Jervis Bay. Filter by swimming, surfing, family-friendly or quiet beaches based on weather, wind, and swell.",
+  keywords: ["best beaches Jervis Bay", "swimming beaches", "surf spots", "family beaches", "quiet beaches"],
+};
 
-      <h1>Best Beaches in Jervis Bay</h1>
-
-      <p>🚧 This page is under construction.</p>
-      <p>We are building a guide to the most beautiful swimming and relaxing beaches in the region.</p>
-
-    </main>
-  );
+export default function BestBeachesPage() {
+  return <BestBeachesContent />;
 }

@@ -2,13 +2,14 @@
 
 import { useState, useMemo, useCallback } from "react";
 import Link from "next/link";
+import activities from "../../src/data/activities";
 
-type ActivityType = "Walk" | "Run" | "Hike" | "Bike";
-type Intensity = "Easy" | "Moderate" | "Hard";
-type Surface = "Paved" | "Trail" | "Mixed";
+type ActivityType = "walk" | "run" | "hike" | "bike";
+type Intensity = "easy" | "moderate" | "hard";
+type Surface = "paved" | "trail" | "mixed";
 type DistanceCategory = "local" | "nearby" | "day-trip" | "regional" | "adventure";
 
-interface Route {
+interface WalkRoute {
   id: string;
   name: string;
   distanceFromHuskisson: string;
@@ -21,222 +22,62 @@ interface Route {
   image?: string;
 }
 
-const routes: Route[] = [
-  // Easy Walks
-  {
-    id: "huskisson-foreshore",
-    name: "Huskisson Foreshore Walk",
-    distanceFromHuskisson: "0 km",
-    distanceCategory: "local",
-    activities: ["Walk", "Run"],
-    intensity: "Easy",
-    surface: "Paved",
-    distance: "2–4 km",
-    description: "Huskisson waterfront loop including boat ramp, main street and beach access points.",
-  },
-  {
-    id: "parkrun-5km",
-    name: "Huskisson Parkrun 5km",
-    distanceFromHuskisson: "0 km",
-    distanceCategory: "local",
-    activities: ["Walk", "Run"],
-    intensity: "Easy",
-    surface: "Paved",
-    distance: "5 km",
-    description: "Saturday 8am Parkrun course. A community event open to all fitness levels.",
-    image: "/Recommended 5km - Parkrun Route.jpg",
-  },
-  {
-    id: "10km-route",
-    name: "Jervis Bay 10km Route",
-    distanceFromHuskisson: "0 km",
-    distanceCategory: "local",
-    activities: ["Walk", "Run", "Bike"],
-    intensity: "Moderate",
-    surface: "Paved",
-    distance: "10 km",
-    description: "Scenic 10km loop around the local area, perfect for a longer workout.",
-    image: "/Recommended 10km Route.jpg",
-  },
-  {
-    id: "plantation-point-huskisson",
-    name: "Plantation Point → Huskisson Walk",
-    distanceFromHuskisson: "~5–7 km start point",
-    distanceCategory: "nearby",
-    activities: ["Walk", "Run"],
-    intensity: "Easy",
-    surface: "Paved",
-    distance: "6–8 km one way",
-    description: "Continuous coastal path between Plantation Point and Huskisson.",
-  },
-  {
-    id: "scribbly-gum-white-sands",
-    name: "Scribbly Gum Track + White Sands Walk",
-    distanceFromHuskisson: "~10–15 min drive",
-    distanceCategory: "nearby",
-    activities: ["Walk"],
-    intensity: "Easy",
-    surface: "Mixed",
-    distance: "3–6 km",
-    description: "Coastal bushland walk connecting multiple beaches.",
-  },
-  {
-    id: "greenfield-chinamans",
-    name: "Greenfield Beach → Chinamans Beach Walk",
-    distanceFromHuskisson: "~5–10 min drive",
-    distanceCategory: "nearby",
-    activities: ["Walk", "Run"],
-    intensity: "Easy",
-    surface: "Mixed",
-    distance: "2–4 km",
-    description: "Short beach-to-beach coastal walk.",
-  },
-  // Moderate Walks
-  {
-    id: "gosangs-abrahams",
-    name: "Gosangs Tunnel + Abrahams Bosom Loop",
-    distanceFromHuskisson: "~35–45 min drive",
-    distanceCategory: "day-trip",
-    activities: ["Walk", "Hike"],
-    intensity: "Moderate",
-    surface: "Trail",
-    distance: "3–6 km",
-    description: "Cliffside tunnel and coastal loop.",
-  },
-  {
-    id: "booderee-coastal-loop",
-    name: "Booderee National Park Coastal Loop System",
-    distanceFromHuskisson: "~15–20 min drive",
-    distanceCategory: "nearby",
-    activities: ["Walk", "Hike", "Run"],
-    intensity: "Moderate",
-    surface: "Mixed",
-    distance: "5–15 km",
-    description: "Flexible coastal and bush loop system.",
-    image: "/Recommended National Park Longer Walk.jpg",
-  },
-  {
-    id: "plantation-hyams-extension",
-    name: "Plantation Point → Hyams Extension Walk",
-    distanceFromHuskisson: "~5–10 min start",
-    distanceCategory: "nearby",
-    activities: ["Walk", "Run"],
-    intensity: "Moderate",
-    surface: "Mixed",
-    distance: "8–10+ km",
-    description: "Extended coastal walk to Hyams Beach corridor.",
-    image: "/Recommended Plantation Point to Hyams Beach Walk.jpg",
-  },
-  {
-    id: "huskisson-vincentia-loop",
-    name: "Huskisson → Vincentia Coastal Run Loop",
-    distanceFromHuskisson: "0 km",
-    distanceCategory: "local",
-    activities: ["Walk", "Run"],
-    intensity: "Moderate",
-    surface: "Mixed",
-    distance: "10–14 km",
-    description: "Coastal loop between Huskisson and Vincentia.",
-  },
-  {
-    id: "kiama-coastal-walk",
-    name: "Kiama Coastal Walk (Bombo → Kiama → Gerringong sections)",
-    distanceFromHuskisson: "~75–90 min drive",
-    distanceCategory: "regional",
-    activities: ["Walk", "Run"],
-    intensity: "Moderate",
-    surface: "Mixed",
-    distance: "8–20 km",
-    description: "Multi-section coastal walk linking beaches and cliffs.",
-    image: "/Recommended Gerringong to Kiama Coastal Walk.jpg",
-  },
-  // Hard Walks
-  {
-    id: "pigeon-house-mountain",
-    name: "Pigeon House Mountain (Didthul)",
-    distanceFromHuskisson: "~1.5–2 hr drive",
-    distanceCategory: "adventure",
-    activities: ["Hike"],
-    intensity: "Hard",
-    surface: "Trail",
-    distance: "5–6 km return",
-    description: "Steep summit hike with panoramic views.",
-    image: "/Recommended Pigeon House Walk.jpg",
-  },
-  {
-    id: "fitzroy-falls",
-    name: "Fitzroy Falls Walks",
-    distanceFromHuskisson: "~1.5–2 hr drive",
-    distanceCategory: "adventure",
-    activities: ["Walk", "Hike"],
-    intensity: "Hard",
-    surface: "Trail",
-    distance: "2–8 km",
-    description: "Waterfall and escarpment walking trails.",
-  },
-  {
-    id: "point-perpendicular",
-    name: "Point Perpendicular Coastal Walks",
-    distanceFromHuskisson: "~40–50 min drive",
-    distanceCategory: "day-trip",
-    activities: ["Walk", "Hike"],
-    intensity: "Hard",
-    surface: "Trail",
-    distance: "2–10 km",
-    description: "Cliff edge coastal walking.",
-  },
-  {
-    id: "cape-st-george",
-    name: "Cape St George Headland Walk",
-    distanceFromHuskisson: "~15–20 min drive",
-    distanceCategory: "nearby",
-    activities: ["Walk", "Hike"],
-    intensity: "Hard",
-    surface: "Trail",
-    distance: "2–5 km",
-    description: "Coastal headland and lighthouse ruins.",
-  },
-  // Running Routes
-  {
-    id: "elizabeth-drive-half-marathon",
-    name: "Recommended Half Marathon Route",
-    distanceFromHuskisson: "local",
-    distanceCategory: "local",
-    activities: ["Run"],
-    intensity: "Hard",
-    surface: "Paved",
-    distance: "21.1 km",
-    description: "Elizabeth Drive to Huskisson half marathon loop finishing at the beach.",
-    image: "/Recommended Half Marathon Route.jpg",
-  },
-  // Bike Rides
-  {
-    id: "huskisson-booderee-loop",
-    name: "Huskisson → Booderee Loop Ride",
-    distanceFromHuskisson: "local start",
-    distanceCategory: "local",
-    activities: ["Bike"],
-    intensity: "Moderate",
-    surface: "Mixed",
-    distance: "20–40 km",
-    description: "Coastal and forest cycling loop.",
-  },
-  {
-    id: "vincentia-hyams-greenfield",
-    name: "Vincentia → Hyams → Greenfield Bike Loop",
-    distanceFromHuskisson: "~5–10 min start",
-    distanceCategory: "nearby",
-    activities: ["Bike"],
-    intensity: "Easy",
-    surface: "Paved",
-    distance: "10–20 km",
-    description: "Scenic coastal cycling route.",
-  },
-];
+interface ActivityData {
+  id: string;
+  title: string;
+  type: string;
+  intensity: string | null;
+  surface: string | null;
+  distanceFromHuskissonKm: number | null;
+  activityDistanceKm: string | null;
+  description: string;
+  images: string[];
+}
 
-const activityTypes: ActivityType[] = ["Walk", "Run", "Hike", "Bike"];
-const intensities: Intensity[] = ["Easy", "Moderate", "Hard"];
-const surfaces: Surface[] = ["Paved", "Trail", "Mixed"];
+// Convert activities data to walks format
+const walkActivities = (activities as ActivityData[]).filter((a) =>
+  ["walk", "run", "hike", "bike"].includes(a.type)
+);
+
+const routes: WalkRoute[] = walkActivities.map((activity) => {
+  let distanceFromHuskisson = "0 km";
+  const km = activity.distanceFromHuskissonKm;
+  if (km === 0) {
+    distanceFromHuskisson = "0 km";
+  } else if (km && km <= 10) {
+    distanceFromHuskisson = `~${km} km`;
+  } else if (km && km <= 30) {
+    distanceFromHuskisson = `~${Math.round(km / 5) * 5} min drive`;
+  } else if (km && km <= 100) {
+    distanceFromHuskisson = `~${Math.round(km / 60)}–${Math.round(km / 40)} hr drive`;
+  } else if (km) {
+    distanceFromHuskisson = `~${Math.round(km / 60)}–${Math.round(km / 45)} hr drive`;
+  }
+
+  let distanceCategory: DistanceCategory = "local";
+  if (km && km <= 5) distanceCategory = "local";
+  else if (km && km <= 15) distanceCategory = "nearby";
+  else if (km && km <= 50) distanceCategory = "day-trip";
+  else if (km && km <= 100) distanceCategory = "regional";
+  else if (km && km > 100) distanceCategory = "adventure";
+
+  return {
+    id: activity.id,
+    name: activity.title,
+    distanceFromHuskisson,
+    distanceCategory,
+    activities: [activity.type as ActivityType],
+    intensity: (activity.intensity as Intensity) || "easy",
+    surface: (activity.surface as Surface) || "mixed",
+    distance: activity.activityDistanceKm || "",
+    description: activity.description,
+    image: activity.images && activity.images.length > 0 ? activity.images[0] : undefined,
+  };
+});
+
+const activityTypes: ActivityType[] = ["walk", "run", "hike", "bike"];
+const intensities: Intensity[] = ["easy", "moderate", "hard"];
+const surfaces: Surface[] = ["paved", "trail", "mixed"];
 
 const distanceCategories: { value: DistanceCategory; label: string; range: string }[] = [
   { value: "local", label: "Local", range: "0–5 km" },
@@ -248,24 +89,24 @@ const distanceCategories: { value: DistanceCategory; label: string; range: strin
 
 function getIntensityColor(intensity: Intensity) {
   switch (intensity) {
-    case "Easy":
+    case "easy":
       return "bg-green-100 text-green-700 border-green-200";
-    case "Moderate":
+    case "moderate":
       return "bg-amber-100 text-amber-700 border-amber-200";
-    case "Hard":
+    case "hard":
       return "bg-red-100 text-red-700 border-red-200";
   }
 }
 
 function getActivityColor(activity: ActivityType) {
   switch (activity) {
-    case "Walk":
+    case "walk":
       return "bg-blue-100 text-blue-700 border-blue-200";
-    case "Run":
+    case "run":
       return "bg-purple-100 text-purple-700 border-purple-200";
-    case "Hike":
+    case "hike":
       return "bg-orange-100 text-orange-700 border-orange-200";
-    case "Bike":
+    case "bike":
       return "bg-teal-100 text-teal-700 border-teal-200";
   }
 }
@@ -358,7 +199,7 @@ export default function BestWalksContent() {
         style={{
           backgroundImage: `
             linear-gradient(135deg, rgba(5, 150, 105, 0.85) 0%, rgba(37, 99, 235, 0.85) 100%),
-            url('/Recomended National Park Longer Walk.jpg')
+            url('/Recommended National Park Longer Walk.jpg')
           `,
           backgroundSize: "cover",
           backgroundPosition: "center",
@@ -447,9 +288,9 @@ export default function BestWalksContent() {
               <div className="space-y-2">
                 {intensities.map((intensity) => {
                   const distanceGuide =
-                    intensity === "Easy"
+                    intensity === "easy"
                       ? "Up to 5 km"
-                      : intensity === "Moderate"
+                      : intensity === "moderate"
                       ? "5–15 km"
                       : "15+ km";
                   return (

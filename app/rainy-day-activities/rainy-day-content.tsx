@@ -1,9 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import Link from "next/link";
+import activities, { filterByRainSuitability } from "../../src/data/activities";
 
 type WeatherMode = "no-rain" | "light-rain" | "heavy-rain" | "storm";
+
+interface ActivityData {
+  id: string;
+  title: string;
+  type: string;
+  rainSuitability: string[] | null;
+  description: string;
+  images: string[];
+  tags: string[];
+}
 
 const weatherModes: {
   id: WeatherMode;
@@ -44,6 +55,21 @@ const weatherModes: {
 
 export default function RainyDayContent() {
   const [selectedMode, setSelectedMode] = useState<WeatherMode>("light-rain");
+
+  // Filter activities based on weather mode
+  const filteredActivities = useMemo(() => {
+    const typedActivities = activities as ActivityData[];
+    return typedActivities.filter((a) => a.rainSuitability && a.rainSuitability.includes(selectedMode));
+  }, [selectedMode]);
+
+  // Get specific activity categories for heavy rain
+  const foodActivities = useMemo(() => {
+    return filteredActivities.filter((a) => a.type === "food");
+  }, [filteredActivities]);
+
+  const generalActivities = useMemo(() => {
+    return filteredActivities.filter((a) => a.type === "activity");
+  }, [filteredActivities]);
 
   const renderContent = () => {
     switch (selectedMode) {
@@ -228,26 +254,36 @@ export default function RainyDayContent() {
                   the weather.
                 </p>
 
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <span>🔥</span> Flaming Galah Brewery
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  The Flaming Galah Brewery is one of the best places to settle in during heavy
-                  rain. With a warm fire, good food, and a relaxed indoor space, it's the kind
-                  of spot where you can sit for hours while the weather does its thing outside. It
-                  works especially well as a "base for the day" — somewhere you can return
-                  to between short outings.
-                </p>
+                {/* Food & Drink Options from dataset */}
+                {foodActivities.map((activity) => (
+                  <div key={activity.id} className="mb-8">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <span>🍻</span> {activity.title}
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed mb-6">{activity.description}</p>
+                  </div>
+                ))}
 
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <span>🍻</span> Huskisson Pub
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  The Huskisson Pub is another strong option for storm days. It's comfortable,
-                  easygoing, and perfect for watching the weather roll across the bay while staying
-                  dry. On heavy rain days, it often becomes a natural gathering point for both
-                  locals and visitors.
-                </p>
+                {/* General Activities from dataset */}
+                {generalActivities.map((activity) => (
+                  <div key={activity.id} className="mb-8">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <span>
+                        {activity.tags.includes("cinema")
+                          ? "🎬"
+                          : activity.tags.includes("pool") || activity.tags.includes("gym")
+                          ? "🟩"
+                          : activity.tags.includes("massage") || activity.tags.includes("wellness")
+                          ? "🟨"
+                          : activity.tags.includes("library")
+                          ? "🟪"
+                          : "📍"}
+                      </span>
+                      {activity.title}
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed mb-6">{activity.description}</p>
+                  </div>
+                ))}
 
                 <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                   <span>🌊</span> Storm Watching Between Showers
@@ -259,16 +295,6 @@ export default function RainyDayContent() {
                   powerful waves and dark skies. These moments are usually short, but they're
                   often the most memorable part of a rainy day. The key is not planning long
                   activities — just being ready to step outside when the weather opens up.
-                </p>
-
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <span>🎬</span> Cinema in Huskisson (Full Reset Option)
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  If the weather turns into full storm conditions with strong wind and consistent
-                  rain, the cinema becomes the easiest way to completely pause the day. It's
-                  simple, low effort, and a good way to reset before heading back to food, drinks,
-                  or waiting out the weather again.
                 </p>
 
                 <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 md:p-8 mb-8 border border-indigo-100">
@@ -327,32 +353,36 @@ export default function RainyDayContent() {
                   reset of your plans.
                 </p>
 
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <span>🎬</span> Cinema in Huskisson
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  The cinema becomes the easiest way to completely pause the day during severe
-                  storm conditions. It's simple, low effort, and a good way to reset before
-                  heading back to food, drinks, or waiting out the weather again.
-                </p>
+                {/* Food & Drink Options from dataset */}
+                {foodActivities.map((activity) => (
+                  <div key={activity.id} className="mb-8">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <span>🍻</span> {activity.title}
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed mb-6">{activity.description}</p>
+                  </div>
+                ))}
 
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <span>🔥</span> Flaming Galah Brewery
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  With a warm fire, good food, and a relaxed indoor space, the Flaming Galah
-                  Brewery is the perfect place to settle in for hours while the storm rages
-                  outside. Use it as your base — somewhere to return to between any brief outings.
-                </p>
-
-                <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <span>🍻</span> Huskisson Pub
-                </h3>
-                <p className="text-gray-700 leading-relaxed mb-6">
-                  Comfortable, easygoing, and perfect for watching the storm roll across the bay
-                  while staying dry. During severe weather, it becomes a natural gathering point
-                  for both locals and visitors seeking shelter and good company.
-                </p>
+                {/* General Activities from dataset */}
+                {generalActivities.map((activity) => (
+                  <div key={activity.id} className="mb-8">
+                    <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                      <span>
+                        {activity.tags.includes("cinema")
+                          ? "🎬"
+                          : activity.tags.includes("pool") || activity.tags.includes("gym")
+                          ? "🟩"
+                          : activity.tags.includes("massage") || activity.tags.includes("wellness")
+                          ? "🟨"
+                          : activity.tags.includes("library")
+                          ? "🟪"
+                          : "📍"}
+                      </span>
+                      {activity.title}
+                    </h3>
+                    <p className="text-gray-700 leading-relaxed mb-6">{activity.description}</p>
+                  </div>
+                ))}
 
                 <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-6 md:p-8 mb-8 border border-gray-200">
                   <h4 className="text-lg font-semibold text-gray-900 mb-3 flex items-center gap-2">
