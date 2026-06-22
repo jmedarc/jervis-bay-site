@@ -312,10 +312,17 @@ async function fetchWeatherForecast(startDate: Date, days: number): Promise<{ fo
 export default function BestBeachesContent() {
   const [selectedCondition, setSelectedCondition] = useState<BeachCondition>("calm");
   const [selectedSuitability, setSelectedSuitability] = useState<BeachSuitability | "all">("all");
-  const [arrivalDate, setArrivalDate] = useState<string>("");
-  const [departureDate, setDepartureDate] = useState<string>("");
+
+  // Initialize with today's date and 7 days ahead
+  const todayStr = new Date().toISOString().split("T")[0];
+  const nextWeekDate = new Date();
+  nextWeekDate.setDate(nextWeekDate.getDate() + 7);
+  const nextWeekStr = nextWeekDate.toISOString().split("T")[0];
+
+  const [arrivalDate, setArrivalDate] = useState<string>(todayStr);
+  const [departureDate, setDepartureDate] = useState<string>(nextWeekStr);
   const [weatherForecast, setWeatherForecast] = useState<WeatherDay[]>([]);
-  const [isLoadingWeather, setIsLoadingWeather] = useState(false);
+  const [isLoadingWeather, setIsLoadingWeather] = useState(true);
   const [weatherError, setWeatherError] = useState<string | null>(null);
   const [weatherEndpoint, setWeatherEndpoint] = useState<string>("");
   const [weatherFetchTime, setWeatherFetchTime] = useState<string>("");
@@ -933,6 +940,112 @@ export default function BestBeachesContent() {
                 <div className="mt-4 p-3 bg-green-50 rounded-lg border border-green-200 text-sm text-green-800">
                   <strong>✓ Live Data:</strong> Weather values shown above are fetched in real-time from the Open-Meteo API.
                   Data is cached by the browser and refreshed when new dates are selected.
+                </div>
+              </div>
+            </details>
+
+            {/* Recommendation Logic Panel */}
+            <details className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden mt-4">
+              <summary className="px-6 py-4 bg-gray-50 cursor-pointer font-semibold text-gray-700 flex items-center justify-between hover:bg-gray-100 transition-colors">
+                <span>🧠 Beach Selection Logic</span>
+                <span className="text-sm text-gray-500 font-normal">Click to expand</span>
+              </summary>
+              <div className="p-6">
+                <h3 className="text-lg font-bold text-gray-900 mb-4">How Beach Recommendations Work</h3>
+                <p className="text-sm text-gray-600 mb-6">
+                  Each beach has unique characteristics that make it ideal under specific conditions. Our recommendation engine considers wind direction, wind speed, swell exposure, and bay location to match you with the best beach for today.
+                </p>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {/* Northern Beaches */}
+                  <div className="p-4 bg-cyan-50 rounded-lg border border-cyan-200">
+                    <h4 className="font-semibold text-cyan-900 mb-2">🏖️ Northern Bay Beaches</h4>
+                    <p className="text-sm text-cyan-800 mb-2">Collingwood, Orion, Barfleur</p>
+                    <ul className="text-xs text-cyan-700 space-y-1">
+                      <li>• <strong>Best with:</strong> Southerly winds (sheltered)</li>
+                      <li>• <strong>Avoid with:</strong> Northerly winds (exposed to chop)</li>
+                      <li>• <strong>Swell:</strong> Low exposure — calm for swimming</li>
+                      <li>• <strong>Ideal for:</strong> Families, SUP, kayaking</li>
+                    </ul>
+                  </div>
+
+                  {/* Central Beaches */}
+                  <div className="p-4 bg-blue-50 rounded-lg border border-blue-200">
+                    <h4 className="font-semibold text-blue-900 mb-2">🏖️ Central Bay Beaches</h4>
+                    <p className="text-sm text-blue-800 mb-2">Greenfield, Chinamans</p>
+                    <ul className="text-xs text-blue-700 space-y-1">
+                      <li>• <strong>Best with:</strong> Southerly/Southeast winds (sheltered)</li>
+                      <li>• <strong>Avoid with:</strong> Northeasterly winds (exposed)</li>
+                      <li>• <strong>Swell:</strong> Low exposure — protected swimming</li>
+                      <li>• <strong>Ideal for:</strong> Swimming, snorkelling</li>
+                    </ul>
+                  </div>
+
+                  {/* Southern Beaches */}
+                  <div className="p-4 bg-green-50 rounded-lg border border-green-200">
+                    <h4 className="font-semibold text-green-900 mb-2">🏖️ Southern Bay Beaches</h4>
+                    <p className="text-sm text-green-800 mb-2">Hyams, Murrays, Cave</p>
+                    <ul className="text-xs text-green-700 space-y-1">
+                      <li>• <strong>Best with:</strong> Northerly winds (sheltered)</li>
+                      <li>• <strong>Avoid with:</strong> Southerly/Southeast winds (exposed to swell)</li>
+                      <li>• <strong>Swell:</strong> Low to medium exposure</li>
+                      <li>• <strong>Ideal for:</strong> Iconic white sand, swimming</li>
+                    </ul>
+                  </div>
+
+                  {/* Ocean Beaches */}
+                  <div className="p-4 bg-purple-50 rounded-lg border border-purple-200">
+                    <h4 className="font-semibold text-purple-900 mb-2">🌊 Ocean Beaches</h4>
+                    <p className="text-sm text-purple-800 mb-2">Blenheim, Nelsons</p>
+                    <ul className="text-xs text-purple-700 space-y-1">
+                      <li>• <strong>Best with:</strong> Westerly winds (offshore)</li>
+                      <li>• <strong>Avoid with:</strong> Any easterly winds (fully exposed)</li>
+                      <li>• <strong>Swell:</strong> High exposure — great for surfing</li>
+                      <li>• <strong>Ideal for:</strong> Surfing, experienced swimmers</li>
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Scoring Factors */}
+                <div className="mt-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
+                  <h4 className="font-semibold text-gray-900 mb-3">Scoring Factors</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-gray-600">
+                    <div>
+                      <p className="font-semibold mb-1">Temperature (up to +25 points)</p>
+                      <p>Optimal around 25°C. Warmer or cooler reduces score.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold mb-1">Cloud Cover (up to +15 points)</p>
+                      <p>Lower cloud cover = higher score. Sunny days preferred.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold mb-1">Rain Probability (up to +15 points)</p>
+                      <p>Lower rain chance = higher score. Dry days preferred.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold mb-1">Wind Speed (up to +10 points)</p>
+                      <p>Lower wind = better for swimming. Higher wind = better for surfing.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold mb-1">Wind Direction (±10 points)</p>
+                      <p>Protected beaches gain points. Exposed beaches lose points.</p>
+                    </div>
+                    <div>
+                      <p className="font-semibold mb-1">Bay Location (±8 points)</p>
+                      <p>Northerly winds favour south. Southerly winds favour north.</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Example Scenarios */}
+                <div className="mt-6 p-4 bg-yellow-50 rounded-lg border border-yellow-200">
+                  <h4 className="font-semibold text-yellow-900 mb-3">Example Scenarios</h4>
+                  <ul className="text-xs text-yellow-800 space-y-2">
+                    <li>• <strong>Strong Northerly (30 km/h):</strong> Hyams Beach recommended — southern bay location is calmer</li>
+                    <li>• <strong>Strong Southerly (25 km/h):</strong> Collingwood Beach recommended — northern bay is sheltered</li>
+                    <li>• <strong>Light Winds (5 km/h), Sunny:</strong> Any protected beach — Greenfield or Barfleur ideal for families</li>
+                    <li>• <strong>High Winds (30 km/h), Westerly:</strong> Blenheim Beach recommended — good surf conditions</li>
+                  </ul>
                 </div>
               </div>
             </details>
