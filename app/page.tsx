@@ -179,6 +179,23 @@ export default function Home() {
             </Link>
 
             <Link
+              href="/iconic-jervis-bay-experiences"
+              className="group bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg hover:border-blue-300 transition-all duration-300"
+            >
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white text-xl font-bold">
+                  🌊
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
+                    Iconic Experiences
+                  </h3>
+                  <p className="text-sm text-gray-500">Whale watching, snorkelling & more</p>
+                </div>
+              </div>
+            </Link>
+
+            <Link
               href="/weekend-itinerary"
               className="group bg-white rounded-2xl shadow-sm border border-gray-200 p-6 hover:shadow-lg hover:border-purple-300 transition-all duration-300 md:col-span-2"
             >
