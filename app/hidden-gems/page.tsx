@@ -51,45 +51,53 @@ export default function HiddenGems() {
 
   return (
     <main className="min-h-full">
-      {/* Hero Section */}
+      {/* Hero Section - Premium Design */}
       <section
-        className="relative min-h-[70vh] flex items-center justify-center bg-gradient-to-br from-blue-600 via-blue-700 to-teal-600 text-white"
+        className="relative min-h-[75vh] flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: `
-            linear-gradient(135deg, rgba(37, 99, 235, 0.9) 0%, rgba(20, 83, 45, 0.85) 100%),
-            url('/Crystal_Clear_Hyams_Beach_White_Sand.jpg')
-          `,
+          backgroundImage: `url('/Crystal_Clear_Hyams_Beach_White_Sand.jpg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <span className="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-wider uppercase bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(
+              135deg,
+              rgba(37, 99, 235, 0.9) 0%,
+              rgba(20, 184, 166, 0.85) 50%,
+              rgba(6, 182, 212, 0.8) 100%
+            )`,
+          }}
+        />
+
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
+        </div>
+
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+          <span className="inline-block px-5 py-2 mb-6 text-sm font-semibold tracking-widest uppercase bg-white/15 backdrop-blur-md rounded-full border border-white/25 text-white shadow-lg">
             Local Secrets Revealed
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
-            5 Hidden Gems in Jervis Bay
-            <span className="block text-3xl md:text-4xl lg:text-5xl mt-2 font-light opacity-90">
-              That Most Visitors Miss
-            </span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white tracking-tight">
+            5 Hidden Gems in Jervis Bay<br className="hidden md:block" /> That Most Visitors Miss
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 opacity-90 leading-relaxed">
-            Everyone knows about Hyams Beach and dolphin cruises. But if you're willing to
-            explore a little further, Jervis Bay has some incredible hidden gems that many
-            visitors never discover.
+          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-10 text-white/90 font-light leading-relaxed">
+            Everyone knows about Hyams Beach and dolphin cruises. But if you're willing to explore a little further, Jervis Bay has some incredible hidden gems.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a
               href="#introduction"
-              className="px-8 py-3.5 bg-white text-blue-700 font-semibold rounded-full hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-white text-primary-700 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300 shadow-xl hover:shadow-2xl hover:scale-105"
             >
               Discover the Secrets
             </a>
             <a
               href="#table-of-contents"
-              className="px-8 py-3.5 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 transition-all duration-300"
+              className="px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/40 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300"
             >
               View All Gems
             </a>
@@ -98,19 +106,12 @@ export default function HiddenGems() {
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <svg
-            className="w-6 h-6 text-white/70"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
+          <div className="flex flex-col items-center gap-2 text-white/60">
+            <span className="text-xs uppercase tracking-widest">Scroll</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
         </div>
       </section>
 
@@ -118,10 +119,8 @@ export default function HiddenGems() {
       <section id="introduction" className="py-20 px-6 bg-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Beyond the Tourist Trail
-            </h2>
-            <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-teal-500 mx-auto rounded-full"></div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">Beyond the Tourist Trail</h2>
+            <div className="w-20 h-1.5 bg-gradient-to-r from-primary-500 to-accent-500 mx-auto rounded-full"></div>
           </div>
 
           <div className="prose prose-lg max-w-none">
@@ -142,9 +141,9 @@ export default function HiddenGems() {
             <div className="flex items-center gap-4">
               <div className="h-px w-16 bg-gray-300"></div>
               <div className="flex gap-2">
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span className="w-2 h-2 bg-teal-500 rounded-full"></span>
-                <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+                <span className="w-2 h-2 bg-primary-500 rounded-full"></span>
+                <span className="w-2 h-2 bg-accent-500 rounded-full"></span>
+                <span className="w-2 h-2 bg-primary-500 rounded-full"></span>
               </div>
               <div className="h-px w-16 bg-gray-300"></div>
             </div>
@@ -153,15 +152,10 @@ export default function HiddenGems() {
       </section>
 
       {/* Table of Contents */}
-      <section
-        id="table-of-contents"
-        className="py-16 px-6 bg-gradient-to-b from-gray-50 to-white"
-      >
+      <section id="table-of-contents" className="py-16 px-6 bg-gradient-to-b from-gray-50 to-white">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-              Table of Contents
-            </h2>
+            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">Table of Contents</h2>
             <p className="text-gray-500">Jump to any hidden gem</p>
           </div>
 
@@ -171,17 +165,17 @@ export default function HiddenGems() {
                 <a
                   key={gem.id}
                   href={`#${gem.id}`}
-                  className="flex items-center gap-4 p-4 md:p-5 hover:bg-blue-50/50 transition-colors duration-200 group"
+                  className="flex items-center gap-4 p-4 md:p-5 hover:bg-primary-50/50 transition-colors duration-200 group"
                 >
-                  <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-gradient-to-br from-blue-500 to-teal-500 text-white rounded-full font-bold text-sm shadow-md group-hover:scale-110 transition-transform duration-200">
+                  <span className="flex-shrink-0 w-10 h-10 flex items-center justify-center bg-gradient-to-br from-primary-500 to-accent-500 text-white rounded-full font-bold text-sm shadow-md group-hover:scale-110 transition-transform duration-200">
                     {gem.number}
                   </span>
-                  <span className="flex-1 text-gray-700 font-medium group-hover:text-blue-700 transition-colors">
+                  <span className="flex-1 text-gray-700 font-medium group-hover:text-primary-700 transition-colors">
                     {gem.title}
                   </span>
                   <span className="text-2xl">{gem.icon}</span>
                   <svg
-                    className="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors"
+                    className="w-5 h-5 text-gray-400 group-hover:text-primary-500 transition-colors"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -201,22 +195,15 @@ export default function HiddenGems() {
       </section>
 
       {/* Hidden Gem #1: Scribbly Gum Track & White Sands Walk */}
-      <section
-        id="scribbly-gum-track"
-        className="py-20 px-6 bg-white scroll-mt-20"
-      >
+      <section id="scribbly-gum-track" className="py-20 px-6 bg-white scroll-mt-20">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
-            <span className="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-blue-500 to-teal-500 text-white rounded-2xl font-bold text-xl shadow-lg">
+            <span className="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-primary-500 to-accent-500 text-white rounded-2xl font-bold text-xl shadow-lg">
               1
             </span>
             <div>
-              <span className="text-sm font-semibold text-blue-600 uppercase tracking-wider">
-                Coastal Walk
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                Scribbly Gum Track & White Sands Walk
-              </h2>
+              <span className="text-sm font-semibold text-primary-600 uppercase tracking-wider">Coastal Walk</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Scribbly Gum Track & White Sands Walk</h2>
             </div>
           </div>
 
@@ -230,10 +217,9 @@ export default function HiddenGems() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-50 to-teal-50 rounded-2xl p-6 md:p-8 mb-8 border border-blue-100">
-            <p className="text-lg text-blue-900 font-medium italic leading-relaxed">
-              If Hyams Beach is on your bucket list, this is the local secret you should know
-              first.
+          <div className="bg-gradient-to-br from-primary-50 to-accent-50 rounded-2xl p-6 md:p-8 mb-8 border border-primary-100">
+            <p className="text-lg text-primary-900 font-medium italic leading-relaxed">
+              If Hyams Beach is on your bucket list, this is the local secret you should know first.
             </p>
           </div>
 
@@ -258,17 +244,17 @@ export default function HiddenGems() {
 
           {/* Feature highlights */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🌿</div>
               <h4 className="font-semibold text-gray-900 mb-1">Coastal Bushland</h4>
               <p className="text-sm text-gray-600">Scenic native vegetation</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🏖️</div>
               <h4 className="font-semibold text-gray-900 mb-1">Multiple Beaches</h4>
               <p className="text-sm text-gray-600">Connect stunning beaches</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🚶</div>
               <h4 className="font-semibold text-gray-900 mb-1">Moderate Walk</h4>
               <p className="text-sm text-gray-600">Rewarding experience</p>
@@ -285,9 +271,7 @@ export default function HiddenGems() {
               2
             </span>
             <div>
-              <span className="text-sm font-semibold text-purple-600 uppercase tracking-wider">
-                Adventure
-              </span>
+              <span className="text-sm font-semibold text-purple-600 uppercase tracking-wider">Adventure</span>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Gosangs Tunnel</h2>
             </div>
           </div>
@@ -329,17 +313,17 @@ export default function HiddenGems() {
 
           {/* Feature highlights */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🔍</div>
               <h4 className="font-semibold text-gray-900 mb-1">Hidden Location</h4>
               <p className="text-sm text-gray-600">Easy to walk past</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">⚠️</div>
               <h4 className="font-semibold text-gray-900 mb-1">Adventure Required</h4>
               <p className="text-sm text-gray-600">Not for everyone</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🌊</div>
               <h4 className="font-semibold text-gray-900 mb-1">Coastal Scenery</h4>
               <p className="text-sm text-gray-600">Incredible views</p>
@@ -356,9 +340,7 @@ export default function HiddenGems() {
               3
             </span>
             <div>
-              <span className="text-sm font-semibold text-amber-600 uppercase tracking-wider">
-                Remote Beach
-              </span>
+              <span className="text-sm font-semibold text-amber-600 uppercase tracking-wider">Remote Beach</span>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Steamers Beach</h2>
             </div>
           </div>
@@ -398,17 +380,17 @@ export default function HiddenGems() {
 
           {/* Feature highlights */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🚙</div>
               <h4 className="font-semibold text-gray-900 mb-1">Dirt Road Access</h4>
               <p className="text-sm text-gray-600">Off the beaten path</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🪜</div>
               <h4 className="font-semibold text-gray-900 mb-1">Long Staircase</h4>
               <p className="text-sm text-gray-600">Worth the climb</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🏞️</div>
               <h4 className="font-semibold text-gray-900 mb-1">Dramatic Coastline</h4>
               <p className="text-sm text-gray-600">Powerful ocean views</p>
@@ -418,22 +400,15 @@ export default function HiddenGems() {
       </section>
 
       {/* Hidden Gem #4: Point Perpendicular Lighthouse */}
-      <section
-        id="point-perpendicular"
-        className="py-20 px-6 bg-gray-50 scroll-mt-20"
-      >
+      <section id="point-perpendicular" className="py-20 px-6 bg-gray-50 scroll-mt-20">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
             <span className="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-indigo-500 to-blue-500 text-white rounded-2xl font-bold text-xl shadow-lg">
               4
             </span>
             <div>
-              <span className="text-sm font-semibold text-indigo-600 uppercase tracking-wider">
-                Spectacular Views
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                Point Perpendicular Lighthouse
-              </h2>
+              <span className="text-sm font-semibold text-indigo-600 uppercase tracking-wider">Spectacular Views</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Point Perpendicular Lighthouse</h2>
             </div>
           </div>
 
@@ -472,17 +447,17 @@ export default function HiddenGems() {
 
           {/* Feature highlights */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">📅</div>
               <h4 className="font-semibold text-gray-900 mb-1">Limited Access</h4>
               <p className="text-sm text-gray-600">Plan ahead</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🏔️</div>
               <h4 className="font-semibold text-gray-900 mb-1">Towering Cliffs</h4>
               <p className="text-sm text-gray-600">Dramatic drop to ocean</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">👁️</div>
               <h4 className="font-semibold text-gray-900 mb-1">Best Views in NSW</h4>
               <p className="text-sm text-gray-600">Spectacular coastline</p>
@@ -492,22 +467,15 @@ export default function HiddenGems() {
       </section>
 
       {/* Hidden Gem #5: Cape St George Lighthouse */}
-      <section
-        id="cape-st-george"
-        className="py-20 px-6 bg-white scroll-mt-20"
-      >
+      <section id="cape-st-george" className="py-20 px-6 bg-white scroll-mt-20">
         <div className="max-w-4xl mx-auto">
           <div className="flex items-center gap-4 mb-8">
             <span className="flex-shrink-0 w-14 h-14 flex items-center justify-center bg-gradient-to-br from-rose-500 to-red-500 text-white rounded-2xl font-bold text-xl shadow-lg">
               5
             </span>
             <div>
-              <span className="text-sm font-semibold text-rose-600 uppercase tracking-wider">
-                Historic Site
-              </span>
-              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
-                Cape St George Lighthouse
-              </h2>
+              <span className="text-sm font-semibold text-rose-600 uppercase tracking-wider">Historic Site</span>
+              <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Cape St George Lighthouse</h2>
             </div>
           </div>
 
@@ -548,17 +516,17 @@ export default function HiddenGems() {
 
           {/* Feature highlights */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🏛️</div>
               <h4 className="font-semibold text-gray-900 mb-1">Historic Ruins</h4>
               <p className="text-sm text-gray-600">Decommissioned lighthouse</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🔭</div>
               <h4 className="font-semibold text-gray-900 mb-1">Lookout Spot</h4>
               <p className="text-sm text-gray-600">Uninterrupted ocean views</p>
             </div>
-            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+            <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="text-2xl mb-2">🌌</div>
               <h4 className="font-semibold text-gray-900 mb-1">Aurora Viewing</h4>
               <p className="text-sm text-gray-600">Best place for Southern Lights</p>
@@ -568,22 +536,20 @@ export default function HiddenGems() {
       </section>
 
       {/* Conclusion Section */}
-      <section className="py-20 px-6 bg-gradient-to-br from-blue-600 via-blue-700 to-teal-600 text-white">
+      <section className="py-20 px-6 bg-gradient-to-br from-primary-600 via-blue-700 to-accent-600 text-white">
         <div className="max-w-3xl mx-auto text-center">
           <div className="mb-8">
             <span className="text-5xl">✨</span>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Discover the Real Jervis Bay
-          </h2>
-          <div className="w-24 h-1 bg-white/30 mx-auto rounded-full mb-8"></div>
-          <p className="text-xl leading-relaxed opacity-95 mb-6">
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Discover the Real Jervis Bay</h2>
+          <div className="w-20 h-1.5 bg-white/30 mx-auto rounded-full mb-8"></div>
+          <p className="text-xl leading-relaxed text-white/95 mb-6">
             Some of the best experiences in Jervis Bay aren't found in the brochures or the
             busiest tourist hotspots. Whether you're exploring coastal walking trails,
             searching for hidden tunnels, discovering remote beaches or simply enjoying
             spectacular views, these five locations showcase a different side of the region.
           </p>
-          <p className="text-lg leading-relaxed opacity-90 mb-10">
+          <p className="text-lg leading-relaxed text-white/90 mb-10">
             If you're looking to experience Jervis Bay beyond the usual attractions, start
             with these local favourites.
           </p>
@@ -591,13 +557,13 @@ export default function HiddenGems() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/"
-              className="px-8 py-3.5 bg-white text-blue-700 font-semibold rounded-full hover:bg-blue-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-white text-primary-700 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               Back to Home
             </Link>
             <a
               href="#scribbly-gum-track"
-              className="px-8 py-3.5 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 transition-all duration-300"
+              className="px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/40 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300"
             >
               Start Exploring
             </a>
@@ -608,12 +574,8 @@ export default function HiddenGems() {
       {/* Footer CTA */}
       <section className="py-12 px-6 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
-          <p className="text-gray-400 mb-4">
-            Enjoyed this guide to hidden gems in Jervis Bay?
-          </p>
-          <p className="text-sm text-gray-500">
-            Share these secret spots with friends and help them discover the real Jervis Bay.
-          </p>
+          <p className="text-gray-400 mb-4">Enjoyed this guide to hidden gems in Jervis Bay?</p>
+          <p className="text-sm text-gray-500">Share these secret spots with friends and help them discover the real Jervis Bay.</p>
         </div>
       </section>
     </main>

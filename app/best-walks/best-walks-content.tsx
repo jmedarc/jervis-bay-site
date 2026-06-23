@@ -193,70 +193,75 @@ export default function BestWalksContent() {
 
   return (
     <main className="min-h-full">
-      {/* Hero Section */}
+      {/* Hero Section - Premium Design */}
       <section
-        className="relative min-h-[60vh] flex items-center justify-center bg-gradient-to-br from-emerald-600 via-teal-600 to-blue-600 text-white"
+        className="relative min-h-[75vh] flex items-center justify-center overflow-hidden"
         style={{
-          backgroundImage: `
-            linear-gradient(135deg, rgba(5, 150, 105, 0.85) 0%, rgba(37, 99, 235, 0.85) 100%),
-            url('/Recommended National Park Longer Walk.jpg')
-          `,
+          backgroundImage: `url('/Recommended National Park Longer Walk.jpg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundAttachment: "fixed",
         }}
       >
-        <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10 text-center px-6 max-w-4xl mx-auto">
-          <span className="inline-block px-4 py-1.5 mb-6 text-sm font-semibold tracking-wider uppercase bg-white/20 backdrop-blur-sm rounded-full border border-white/30">
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `linear-gradient(
+              135deg,
+              rgba(5, 150, 105, 0.88) 0%,
+              rgba(20, 184, 166, 0.82) 50%,
+              rgba(37, 99, 235, 0.8) 100%
+            )`,
+          }}
+        />
+
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute -top-40 -right-40 w-96 h-96 bg-white/5 rounded-full blur-3xl animate-pulse" />
+        </div>
+
+        <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+          <span className="inline-block px-5 py-2 mb-6 text-sm font-semibold tracking-widest uppercase bg-white/15 backdrop-blur-md rounded-full border border-white/25 text-white shadow-lg">
             Local Guide
           </span>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 leading-tight">
-            Best Walks, Runs & Rides
-            <span className="block text-3xl md:text-4xl lg:text-5xl mt-2 font-light opacity-90">
-              Around Jervis Bay
-            </span>
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-white tracking-tight">
+            Best Walks, Runs & Rides<br className="hidden md:block" /> Around Jervis Bay
           </h1>
-          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-8 opacity-90 leading-relaxed">
-            A local guide to coastal walks, running routes, bike rides and hikes — from short
-            waterfront paths to full-day adventures.
+          <p className="text-lg md:text-xl max-w-2xl mx-auto mb-10 text-white/90 font-light leading-relaxed">
+            A local guide to coastal walks, running routes, bike rides and hikes — from short waterfront paths to full-day adventures.
           </p>
         </div>
 
         {/* Scroll indicator */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <svg
-            className="w-6 h-6 text-white/70"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 14l-7 7m0 0l-7-7m7 7V3"
-            />
-          </svg>
+          <div className="flex flex-col items-center gap-2 text-white/60">
+            <span className="text-xs uppercase tracking-widest">Scroll</span>
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
         </div>
       </section>
 
-      {/* Filter Section */}
-      <section className="py-12 px-6 bg-gray-50 border-b border-gray-200">
+      {/* Filter Section - Premium Design */}
+      <section className="py-12 px-6 bg-gradient-to-b from-gray-50 to-white border-b border-gray-200">
         <div className="max-w-6xl mx-auto">
-          <div className="flex items-center justify-between mb-6">
-            <h2 className="text-2xl font-bold text-gray-900">Find Your Adventure</h2>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-8">
+            <div>
+              <h2 className="text-2xl font-bold text-gray-900">Find Your Adventure</h2>
+              <p className="text-gray-500 mt-1">Filter by activity type, intensity, and distance</p>
+            </div>
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+                className="text-sm text-primary-600 hover:text-primary-700 font-medium px-4 py-2 rounded-lg hover:bg-primary-50 transition-colors"
               >
                 Clear all filters
               </button>
             )}
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             {/* Activity Type Filter */}
             <div className="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
               <h3 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
@@ -269,11 +274,11 @@ export default function BestWalksContent() {
                     onClick={() => toggleActivity(activity)}
                     className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                       selectedActivities.includes(activity)
-                        ? getActivityColor(activity)
+                        ? getActivityColor(activity) + " shadow-md"
                         : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                     }`}
                   >
-                    {activity}
+                    <span className="capitalize">{activity}</span>
                   </button>
                 ))}
               </div>
@@ -299,11 +304,11 @@ export default function BestWalksContent() {
                       onClick={() => toggleIntensity(intensity)}
                       className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                         selectedIntensities.includes(intensity)
-                          ? getIntensityColor(intensity)
+                          ? getIntensityColor(intensity) + " shadow-md"
                           : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                       }`}
                     >
-                      <span className="font-semibold">{intensity}</span>
+                      <span className="font-semibold capitalize">{intensity}</span>
                       <span className="text-xs ml-2 opacity-70">({distanceGuide})</span>
                     </button>
                   );
@@ -321,9 +326,9 @@ export default function BestWalksContent() {
                   <button
                     key={surface}
                     onClick={() => toggleSurface(surface)}
-                    className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                    className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all capitalize ${
                       selectedSurfaces.includes(surface)
-                        ? "bg-indigo-100 text-indigo-700 border border-indigo-200"
+                        ? "bg-indigo-100 text-indigo-700 border border-indigo-200 shadow-md"
                         : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                     }`}
                   >
@@ -350,7 +355,7 @@ export default function BestWalksContent() {
                     }
                     className={`w-full text-left px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                       selectedDistanceCategory === category.value
-                        ? "bg-emerald-100 text-emerald-700 border border-emerald-200"
+                        ? "bg-emerald-100 text-emerald-700 border border-emerald-200 shadow-md"
                         : "bg-gray-50 text-gray-600 hover:bg-gray-100"
                     }`}
                   >
@@ -363,86 +368,109 @@ export default function BestWalksContent() {
           </div>
 
           {/* Results count */}
-          <div className="mt-6 text-center">
-            <p className="text-gray-600">
-              Showing <span className="font-semibold text-gray-900">{filteredRoutes.length}</span> routes
+          <div className="mt-6 flex items-center justify-center">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-white rounded-full shadow-sm border border-gray-200">
+              <span className="text-gray-500 text-sm">Showing</span>
+              <span className="font-bold text-gray-900">{filteredRoutes.length}</span>
+              <span className="text-gray-500 text-sm">routes</span>
               {hasActiveFilters && (
-                <span className="text-sm text-gray-500 ml-2">
-                  (filtered from {routes.length} total)
-                </span>
+                <>
+                  <span className="text-gray-300">|</span>
+                  <span className="text-gray-400 text-sm">from {routes.length} total</span>
+                </>
               )}
-            </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Content Cards Section */}
-      <section className="py-16 px-6 bg-white">
-        <div className="max-w-6xl mx-auto">
+      {/* Content Cards Section - Premium Design */}
+      <section className="py-16 px-6 bg-gray-50">
+        <div className="max-w-7xl mx-auto">
           {filteredRoutes.length === 0 ? (
-            <div className="text-center py-16">
-              <div className="text-5xl mb-4">🔍</div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-2">No routes found</h3>
-              <p className="text-gray-600">Try adjusting your filters to see more results.</p>
+            <div className="text-center py-20 bg-white rounded-3xl shadow-sm border border-gray-200">
+              <div className="text-6xl mb-6">🔍</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-3">No routes found</h3>
+              <p className="text-gray-600 mb-6">Try adjusting your filters to see more results.</p>
+              <button
+                onClick={clearFilters}
+                className="px-6 py-3 bg-primary-600 text-white font-semibold rounded-full hover:bg-primary-700 transition-colors"
+              >
+                Clear Filters
+              </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
               {filteredRoutes.map((route) => (
                 <div
                   key={route.id}
-                  className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow duration-300"
+                  className="group bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-xl hover:border-amber-200 transition-all duration-300 hover:-translate-y-1"
                 >
-                  {route.image && (
-                    <div className="relative overflow-hidden">
-                      <img
-                        src={route.image}
-                        alt={route.name}
-                        className="w-full h-48 object-cover hover:scale-105 transition-transform duration-300 cursor-pointer"
-                        onClick={() => openLightbox(route.image!, route.name)}
-                      />
-                      <div className="absolute inset-0 bg-black/0 hover:bg-black/20 transition-colors duration-300 flex items-center justify-center pointer-events-none">
-                        <span className="opacity-0 hover:opacity-100 bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm font-medium transition-opacity duration-300">
-                          Click to enlarge
-                        </span>
-                      </div>
-                    </div>
-                  )}
+                  {/* Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    {route.image && (
+                      <>
+                        <img
+                          src={route.image}
+                          alt={route.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 cursor-pointer"
+                          onClick={() => openLightbox(route.image!, route.name)}
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                          <span className="opacity-0 group-hover:opacity-100 bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm font-medium transition-opacity duration-300">
+                            Click to enlarge
+                          </span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+
+                  {/* Content */}
                   <div className="p-5">
-                    <div className="flex flex-wrap gap-2 mb-3">
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1.5 mb-3">
                       {route.activities.map((activity) => (
                         <span
                           key={activity}
-                          className={`px-2 py-1 rounded-md text-xs font-semibold border ${getActivityColor(
-                            activity
-                          )}`}
+                          className={`px-2 py-0.5 rounded-md text-xs font-semibold border capitalize ${getActivityColor(activity)}`}
                         >
                           {activity}
                         </span>
                       ))}
                       <span
-                        className={`px-2 py-1 rounded-md text-xs font-semibold border ${getIntensityColor(
-                          route.intensity
-                        )}`}
+                        className={`px-2 py-0.5 rounded-md text-xs font-semibold border capitalize ${getIntensityColor(route.intensity)}`}
                       >
                         {route.intensity}
                       </span>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900 mb-2">{route.name}</h3>
+
+                    {/* Title */}
+                    <h3 className="text-lg font-bold text-gray-900 mb-3">{route.name}</h3>
+
+                    {/* Details */}
                     <div className="space-y-2 mb-4">
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <span>📍</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
                         <span>{route.distanceFromHuskisson} from Huskisson</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
-                        <span>📏</span>
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
                         <span>{route.distance}</span>
                       </div>
                       <div className="flex items-center gap-2 text-sm text-gray-600">
                         <span>🛤️</span>
-                        <span>{route.surface}</span>
+                        <span className="capitalize">{route.surface}</span>
                       </div>
                     </div>
-                    <p className="text-gray-600 text-sm leading-relaxed">{route.description}</p>
+
+                    {/* Description */}
+                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-3">{route.description}</p>
                   </div>
                 </div>
               ))}
@@ -452,32 +480,27 @@ export default function BestWalksContent() {
       </section>
 
       {/* Conclusion Section */}
-      <section className="py-16 px-6 bg-gradient-to-br from-emerald-600 via-teal-600 to-blue-600 text-white">
+      <section className="py-20 px-6 bg-gradient-to-br from-emerald-600 via-teal-600 to-blue-600 text-white">
         <div className="max-w-3xl mx-auto text-center">
           <div className="mb-6">
-            <span className="text-4xl">🥾</span>
+            <span className="text-5xl">🥾</span>
           </div>
-          <h2 className="text-2xl md:text-3xl font-bold mb-6">
-            Get Out and Explore
-          </h2>
-          <div className="w-24 h-1 bg-white/30 mx-auto rounded-full mb-6"></div>
-          <p className="text-lg leading-relaxed opacity-95 mb-8">
-            Whether you're after a gentle waterfront stroll, a challenging summit hike, or a
-            scenic bike ride, Jervis Bay and the surrounding region offer routes for every level
-            and interest. From local paths starting right in Huskisson to full-day adventures
-            further afield, there's always a new trail to discover.
+          <h2 className="text-3xl md:text-4xl font-bold mb-6">Get Out and Explore</h2>
+          <div className="w-20 h-1.5 bg-white/30 mx-auto rounded-full mb-6"></div>
+          <p className="text-lg leading-relaxed text-white/90 mb-10">
+            Whether you're after a gentle waterfront stroll, a challenging summit hike, or a scenic bike ride, Jervis Bay and the surrounding region offer routes for every level and interest.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/"
-              className="px-8 py-3.5 bg-white text-emerald-700 font-semibold rounded-full hover:bg-emerald-50 transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="px-8 py-4 bg-white text-emerald-700 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
             >
               Back to Home
             </Link>
             <Link
               href="/hidden-gems"
-              className="px-8 py-3.5 bg-transparent border-2 border-white text-white font-semibold rounded-full hover:bg-white/10 transition-all duration-300"
+              className="px-8 py-4 bg-white/10 backdrop-blur-md border-2 border-white/40 text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300"
             >
               Explore Hidden Gems
             </Link>
@@ -492,7 +515,7 @@ export default function BestWalksContent() {
           onClick={closeLightbox}
         >
           <button
-            className="absolute top-6 right-6 text-white/80 hover:text-white text-4xl font-light z-10"
+            className="absolute top-6 right-6 text-white/80 hover:text-white text-4xl font-light z-10 transition-colors"
             onClick={closeLightbox}
             aria-label="Close lightbox"
           >
@@ -512,12 +535,10 @@ export default function BestWalksContent() {
       )}
 
       {/* Footer */}
-      <section className="py-10 px-6 bg-gray-900 text-white">
+      <section className="py-12 px-6 bg-gray-900 text-white">
         <div className="max-w-4xl mx-auto text-center">
           <p className="text-gray-400 mb-2">Planning your Jervis Bay adventure?</p>
-          <p className="text-sm text-gray-500">
-            Check out our other guides for more things to do in the region.
-          </p>
+          <p className="text-sm text-gray-500">Check out our other guides for more things to do in the region.</p>
         </div>
       </section>
     </main>
